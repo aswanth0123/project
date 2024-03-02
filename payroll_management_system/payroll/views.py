@@ -16,6 +16,10 @@ def all_jobs():
 def all_employee():
     all_employee=Employee.objects.all()
     return all_employee
+
+def all_attendance():
+    all_attendance=Attendance.objects.all()
+    return all_attendance
 # <-----------------login      logout------------------->
 
 def login_user(request):
@@ -96,19 +100,28 @@ def view_added_job_types(request):
 
 def view_attendence(request):
     attendance=attendance.objectss.all()
+import datetime
+import calendar
 
 def mark_attendence(request):
-    return render(request,'admin_side/mark_attendence.html',{'employee':all_employee()}) 
+    today=Attendance.objects.filter(date=datetime.datetime.now().date())        
+    if request.method == 'POST':
+        for i in all_employee():
+            if request.POST.get(i.emp_id):
+                    print(i,'in')
+                    data=Attendance.objects.create(employee=i,date=datetime.datetime.now().date(),status=True)
+                    data.save()
+            else:
+                print('not',i)
+    return render(request,'admin_side/mark_attendence.html',{'employee':all_employee(),'today':today}) 
 
-from django.http import JsonResponse
 
-def update_selected_employees(request):
-    if request.method == 'POST' and request.is_ajax():
-        employee_id = request.POST.get('employee_id')
-        status = request.POST.get('status')
-        date = request.POST.get('date')
-        attendance, created = Attendance.objects.get_or_create(employee_id=employee_id, date=date)
-        attendance.status = status
-        attendance.save()
-        return JsonResponse({'message': 'Attendance updated successfully.'})
-    return JsonResponse({'message': 'Invalid request.'}, status=400)
+
+def attendance_details(request):
+    
+    _, num_days = calendar.monthrange(datetime.datetime.now().year, datetime.datetime.now().month)
+    days=[]
+    for i in range(1,num_days+1):
+        days.append(i)
+
+    return render(request,'admin_side/attendance_details.html',{'attendance':all_attendance(),'employee':all_employee(),'days':days}) 

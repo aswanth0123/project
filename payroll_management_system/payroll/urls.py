@@ -12,5 +12,5 @@ urlpatterns = [
     path('add_job_type',views.add_job_type),
     path('view_added_job_types',views.view_added_job_types),
     path('mark_attendence',views.mark_attendence),
-    path('update_selected_employees',views.update_selected_employees)
+    path('attendance_details',views.attendance_details),
 ]

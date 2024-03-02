@@ -318,36 +318,41 @@
                   {% if employee %}
                   <form action="../mark_attendence" method="post">
                     {% csrf_token %}
-                  <table class="table table-hover " id="myTable">
+                    <div class="table-responsive">
+                  <table class="table table-hover table-bordard" id="myTable">
                     <thead>
                       <tr class="bg-dark">
                     
-                        <th>Emp ID</th>
                         <th >Employee Name</th>
                         <th >Department</th>
-                        <th>Mark attendence</th>
-                        
+                        {% for i in days %}
+                        <th class="p-3"> {{i}}</th>
+                          {% endfor %}                        
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <th></th>
                         <th></th>
                         <th></th>
 
                         <th> 
-                          <label>
-                            <input type="checkbox" id="checkAll">
-                            Select All 
-                        </label>
-                        <input type="submit" value="mark" class="btn btn-success mx-4">
+                        
+                         <table>
+                            <tr>
+                                {% for i in days %}
+                              <th class="p-3"> {{i}}</th>
+                                {% endfor %}
+                            </tr>
+                         </table>
+                        
+                      
                       </th>
-                      </tr>
+                      </tr> -->
                     </thead>
                     <tbody class="table-border-bottom-0">
                      
                         {% for emp in employee %}
                         <tr>
-                            <td>{{emp.emp_id}}  
-                            </td>
+                            
                             <td>{{emp.name}}</td>
                             <td>{{emp.job_type.position}}</td>
                             <td><input type="checkbox" name="{{emp.emp_id}}" id=""  class="employeeCheckbox" value="{{emp.emp_id}}" 
@@ -360,6 +365,7 @@
                         {% endfor %}
                     </tbody>
                   </table>
+                </div>
                 </form>
                   {% else %}
                   No employees
@@ -415,7 +421,6 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script src="{% static 'admin_side/js/sample.js' %}"></script>
 
   </body>
 </html>

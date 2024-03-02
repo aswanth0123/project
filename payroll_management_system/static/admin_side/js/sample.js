@@ -1,55 +1,85 @@
-$(document).ready(function() {
-    const checkAll = $('#checkAll');
-    const searchInput = $('#searchInput');
-    const table = $('#myTable');
-    const rows = $('#myTable tbody tr');
-    const noResults = $('#noResults');
-    const allSelected = $('#allSelected');
-    const attendanceCheckboxes = $('.attendanceCheckbox');
-  
-    checkAll.change(function() {
-      attendanceCheckboxes.prop('checked', checkAll.prop('checked'));
-      updateAllSelectedMessage();
-    });
-  
-    $('.attendanceCheckbox').change(function() {
-      updateAllSelectedMessage();
-    });
-  
-    $('#attendanceForm').submit(function(event) {
-      event.preventDefault();
-      updateAttendance();
-    });
-  
-    function updateAttendance() {
-      let formData = $('#attendanceForm').serialize();
-      $.ajax({
-        url: '/update_attendance/',
-        type: 'POST',
-        data: formData,
-        dataType: 'json',
-        success: function(response) {
-          console.log(response.message);
-        },
-        error: function(xhr, errmsg, err) {
-          console.log('Error updating attendance.');
-        }
-      });
-    }
-  
-    function updateAllSelectedMessage() {
-      let allChecked = true;
-      $('.attendanceCheckbox').each(function() {
-        if (!$(this).prop('checked')) {
-          allChecked = false;
-          return false; // Break out of loop
-        }
-      });
-      if (allChecked) {
-        $('#allSelected').show();
-      } else {
-        $('#allSelected').hide();
-      }
+const searchInput = document.getElementById('searchInput');
+const table = document.getElementById('myTable');
+const rows = table.getElementsByTagName('tr');
+const noResults = document.getElementById('noResults');
+const checkAll = document.getElementById('checkAll');
+const employeeCheckboxes = document.querySelectorAll('.employeeCheckbox');
+
+checkAll.addEventListener('change', function() {
+  employeeCheckboxes.forEach(function(checkbox) {
+    if (checkbox.closest('tr').style.display !== 'none') {
+      checkbox.checked = checkAll.checked;
     }
   });
-  
+});
+
+searchInput.addEventListener('input', function() {
+  const searchText = searchInput.value.toLowerCase();
+  let showNoResults = true;
+  let filteredRows = [];
+
+  for (let i = 2; i < rows.length; i++) {
+    let row = rows[i];
+    let cells = row.getElementsByTagName('td');
+    let found = false;
+
+    for (let j = 0; j < cells.length; j++) {
+      let cellText = cells[j].textContent.toLowerCase();
+      if (cellText.includes(searchText)) {
+        found = true;
+        break;
+      }
+    }
+
+    if (found) {
+      row.style.display = '';
+      filteredRows.push(row);
+      showNoResults = false;
+    } else {
+      row.style.display = 'none';
+    }
+  }
+
+  // Toggle visibility of noResults div based on showNoResults
+  if (showNoResults) {
+    noResults.style.display = 'block';
+  } else {
+    noResults.style.display = 'none';
+  }
+
+  // Update checkAll checkbox based on filtered rows
+  if (filteredRows.length === 0) {
+    checkAll.checked = false;
+  } else {
+    let allChecked = true;
+    filteredRows.forEach(function(row) {
+      let checkbox = row.querySelector('.employeeCheckbox');
+      if (!checkbox.checked) {
+        allChecked = false;
+      }
+    });
+    checkAll.checked = allChecked;
+  }
+});
+
+// Listen for changes in employee checkboxes
+employeeCheckboxes.forEach(function(checkbox) {
+  checkbox.addEventListener('change', function() {
+    // If any employee checkbox is unchecked, uncheck the "checkAll" checkbox
+    if (!this.checked) {
+      checkAll.checked = false;
+    } else {
+      // Check if all filtered employee checkboxes are checked
+      let allChecked = true;
+      let filteredRows = table.querySelectorAll('tbody tr');
+      filteredRows.forEach(function(row) {
+        let checkbox = row.querySelector('.employeeCheckbox');
+        if (!checkbox.checked) {
+          allChecked = false;
+        }
+      });
+      // If all filtered employee checkboxes are checked, check the "checkAll" checkbox
+      checkAll.checked = allChecked;
+    }
+  });
+});
