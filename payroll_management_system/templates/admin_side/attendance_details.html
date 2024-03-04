@@ -311,7 +311,8 @@
               <!-- Basic Layout -->
               <div class="card">
 
-                <h5 class="card-header">Employee Details</h5>
+                <h3 class="card-header">Attendance Details </h3>
+                <h5 class="mx-5">Month:{{Month}}</h5>
                 <div class="table-responsive text-nowrap container">
             <input type="text" id="searchInput" placeholder="Search..." class="form-control mb-4">
 
@@ -326,7 +327,7 @@
                         <th >Employee Name</th>
                         <th >Department</th>
                         {% for i in days %}
-                        <th class="p-3"> {{i}}</th>
+                        <th class="p-3"> {{i.day}}</th>
                           {% endfor %}                        
                       </tr>
                       <!-- <tr>
@@ -355,11 +356,16 @@
                             
                             <td>{{emp.name}}</td>
                             <td>{{emp.job_type.position}}</td>
-                            <td><input type="checkbox" name="{{emp.emp_id}}" id=""  class="employeeCheckbox" value="{{emp.emp_id}}" 
-                              
-                              {% for i in today %}   {% if emp.id is i.employee.id %} checked {% else %} not {% endif %}{% endfor %}
-                              ></td>
-                            <!-- <td><input type="checkbox" name="" id=""></td> -->
+                            {% for i in days %}
+                            <td class="p-3"> {% for j in attendance %}{% if j.employee.id == emp.id %}
+
+                              <!-- {{j.date}} -->
+
+                              {% if i.date == j.date %}
+                              P
+                              {% endif %}
+                              {% endif %}{% endfor %}</td>
+                              {% endfor %}  
                 
                         </tr>
                         {% endfor %}
@@ -421,6 +427,5 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-
   </body>
 </html>

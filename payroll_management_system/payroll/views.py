@@ -118,10 +118,24 @@ def mark_attendence(request):
 
 
 def attendance_details(request):
-    
-    _, num_days = calendar.monthrange(datetime.datetime.now().year, datetime.datetime.now().month)
-    days=[]
-    for i in range(1,num_days+1):
-        days.append(i)
+    if request.method=='POST':
+        year=request.POST['year']
+        month=request.POST['month']
+    else:
+        current_date = datetime.datetime.now()
+        year = current_date.year
+        month = current_date.month
+    month_name = calendar.month_name[month]
 
-    return render(request,'admin_side/attendance_details.html',{'attendance':all_attendance(),'employee':all_employee(),'days':days}) 
+# Display the month name
+    num_days = calendar.monthrange(year, month)[1]
+    all_dates = [datetime.date(year, month, day) for day in range(1, num_days + 1)]
+    day=[]
+    for i in range(1,len(all_dates)+1):
+        day.append({'day':i,'date':all_dates[i-1]})
+    att_dtl=Attendance.objects.filter(date__gt=datetime.datetime(year, month, 1),date__lt=datetime.datetime(2024, 3, 1))
+    
+    # for emp in all_employee():
+
+
+    return render(request,'admin_side/attendance_details.html',{'attendance':all_attendance(),'employee':all_employee(),'days':day,'Month':month_name}) 
