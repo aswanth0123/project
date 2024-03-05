@@ -32,6 +32,10 @@
     <meta name="description" content="" />
 {% load static %}
     <!-- Favicon -->
+
+ 
+
+
     <link rel="icon" type="image/x-icon" href="{% static 'admin_side/assets/img/favicon/favicon.ico' %}" />
 
     <!-- Fonts -->
@@ -310,17 +314,44 @@
               {% endif %}
               <!-- Basic Layout -->
               <div class="card">
-
+     
                 <h3 class="card-header">Attendance Details </h3>
-                <h5 class="mx-5">Month:{{Month}}</h5>
+                <h5 class="mx-5">Month:{{Month}} &nbsp; Year : {{year}} &nbsp;</h5>
+                <h6 class="mx-5"> change Year and month<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#myModal">click here</button></h6>
+              
+                <div class="modal" id="myModal">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                        <h4 class="modal-title">Select Year and Month </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                      </div>
+                <form action="../attendance_details" method="post">
+                  {% csrf_token %}
+                      <!-- Modal body -->
+                      <div class="modal-body">
+                        <input type="month" class="form-control" required name="month">
+                      </div>
+                
+                      <!-- Modal footer -->
+                      <div class="modal-footer">
+                        <input type="submit" class="btn btn-danger"  >
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+                
                 <div class="table-responsive text-nowrap container">
             <input type="text" id="searchInput" placeholder="Search..." class="form-control mb-4">
 
                   {% if employee %}
                   <form action="../mark_attendence" method="post">
                     {% csrf_token %}
-                    <div class="table-responsive">
-                  <table class="table table-hover table-bordard" id="myTable">
+                    <div class="table-responsive mb-3">
+                  <table class="table table-hover table-bordard " id="myTable">
                     <thead>
                       <tr class="bg-dark">
                     
@@ -359,8 +390,7 @@
                             {% for i in days %}
                             <td class="p-3"> {% for j in attendance %}{% if j.employee.id == emp.id %}
 
-                              <!-- {{j.date}} -->
-
+  
                               {% if i.date == j.date %}
                               P
                               {% endif %}
@@ -409,6 +439,8 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js' %} -->
+    
+
     <script src="{% static 'admin_side/assets/vendor/libs/jquery/jquery.js' %}"></script>
     <script src="{% static 'admin_side/assets/vendor/libs/popper/popper.js' %}"></script>
     <script src="{% static 'admin_side/assets/vendor/js/bootstrap.js' %}"></script>

@@ -119,8 +119,15 @@ def mark_attendence(request):
 
 def attendance_details(request):
     if request.method=='POST':
-        year=request.POST['year']
-        month=request.POST['month']
+        print()
+        a = request.POST['month']
+        year, month = a.split('-')
+
+        print("Year:", year)
+        print("Month:", month)
+
+        year=int(year)
+        month=int(month)
     else:
         current_date = datetime.datetime.now()
         year = current_date.year
@@ -138,4 +145,4 @@ def attendance_details(request):
     # for emp in all_employee():
 
 
-    return render(request,'admin_side/attendance_details.html',{'attendance':all_attendance(),'employee':all_employee(),'days':day,'Month':month_name}) 
+    return render(request,'admin_side/attendance_details.html',{'attendance':all_attendance(),'employee':all_employee(),'days':day,'Month':month_name,'year':year}) 
