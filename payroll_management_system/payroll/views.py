@@ -140,7 +140,8 @@ def attendance_details(request):
     day=[]
     for i in range(1,len(all_dates)+1):
         day.append({'day':i,'date':all_dates[i-1]})
-    att_dtl=Attendance.objects.filter(date__gt=datetime.datetime(year, month, 1),date__lt=datetime.datetime(2024, 3, 1))
+    att_dtl=Attendance.objects.filter(date__gt=datetime.datetime(year, month, 1),date__lt=datetime.datetime(year, month+1, 1))
+    
     
     # for emp in all_employee():
 
