@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Job_type)
 admin.site.register(Employee)
 admin.site.register(Attendance)
+admin.site.register(Salary_Dtls)

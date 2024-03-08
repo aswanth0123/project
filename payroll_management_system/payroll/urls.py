@@ -13,4 +13,5 @@ urlpatterns = [
     path('view_added_job_types',views.view_added_job_types),
     path('mark_attendence',views.mark_attendence),
     path('attendance_details',views.attendance_details),
+    path('salary_details',views.salary_details),
 ]

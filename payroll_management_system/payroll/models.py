@@ -17,3 +17,14 @@ class Attendance(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     date = models.DateField()
     status = models.BooleanField(default=False) 
+
+class Salary_Dtls(models.Model):
+    curent_salary=models.FloatField()
+    month_year=models.DateField()
+    total_working_days=models.IntegerField()
+    total_present=models.FloatField()
+    employee=models.ForeignKey(Employee,on_delete=models.CASCADE)
+    payable_amts=models.FloatField(null=True)
+    pf_amt=models.FloatField(null=True)
+    esi_amt=models.FloatField(null=True)
+    tax_amt=models.FloatField(null=True)

@@ -2,7 +2,10 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User,auth
 from .models import *
 from django.contrib import messages
-
+import datetime
+import calendar
+from datetime import date, timedelta
+from django.utils import timezone  # If using Django models
 
 # Create your views here.
 def admin_home(request):
@@ -20,6 +23,44 @@ def all_employee():
 def all_attendance():
     all_attendance=Attendance.objects.all()
     return all_attendance
+
+def one_month(year,month):
+    num_days = calendar.monthrange(year, month)[1]
+    all_dates = [datetime.date(year, month, day) for day in range(1, num_days + 1)]
+    day=[]
+    for i in range(1,len(all_dates)+1):
+        day.append({'day':i,'date':all_dates[i-1]})
+    sundays = sum(1 for date in all_dates if date.weekday() == calendar.SUNDAY)
+    att_dtls=Attendance.objects.filter(date__gte=datetime.datetime(year, month, 1),date__lt=datetime.datetime(year, month+1, 1))
+    return day,sundays,att_dtls
+
+
+def add_salary():
+    current_date = datetime.datetime.now()
+    year = current_date.year
+    month = current_date.month
+    day,sundays,att_dtls=one_month(year,month-1)
+    work_day=len(day)-sundays
+    data=Salary_Dtls.objects.filter(month_year__gte=datetime.datetime(year, month-1, 1),month_year__lt=datetime.datetime(year, month, 1))
+    if not(data):
+        for i in all_employee():
+            c=0
+            for j in att_dtls:
+                if i.id is j.employee.id:
+                    c+=1
+            pay_amt=(i.salary/work_day)*c
+            data=Salary_Dtls.objects.create(curent_salary=i.salary,
+            month_year=datetime.datetime(year, month-1, 1),
+            total_working_days=work_day,
+            total_present=c,
+            employee=i,
+            payable_amts=pay_amt
+            )
+            data.save()
+
+    # if not(data):*
+
+add_salary()
 # <-----------------login      logout------------------->
 
 def login_user(request):
@@ -100,8 +141,7 @@ def view_added_job_types(request):
 
 def view_attendence(request):
     attendance=attendance.objectss.all()
-import datetime
-import calendar
+
 
 def mark_attendence(request):
     today=Attendance.objects.filter(date=datetime.datetime.now().date())        
@@ -119,31 +159,31 @@ def mark_attendence(request):
 
 def attendance_details(request):
     if request.method=='POST':
-        print()
         a = request.POST['month']
         year, month = a.split('-')
-
-        print("Year:", year)
-        print("Month:", month)
-
-        year=int(year)
         month=int(month)
+        year=int(year)
     else:
         current_date = datetime.datetime.now()
         year = current_date.year
         month = current_date.month
+    day,sundays,att_dtl=one_month(year,month)
     month_name = calendar.month_name[month]
 
-# Display the month name
-    num_days = calendar.monthrange(year, month)[1]
-    all_dates = [datetime.date(year, month, day) for day in range(1, num_days + 1)]
-    day=[]
-    for i in range(1,len(all_dates)+1):
-        day.append({'day':i,'date':all_dates[i-1]})
-    att_dtl=Attendance.objects.filter(date__gt=datetime.datetime(year, month, 1),date__lt=datetime.datetime(year, month+1, 1))
-    
-    
-    # for emp in all_employee():
-
+    att_dtl=att_dtl
 
     return render(request,'admin_side/attendance_details.html',{'attendance':all_attendance(),'employee':all_employee(),'days':day,'Month':month_name,'year':year}) 
+
+
+def salary_details(request):
+    if request.method=='POST':
+        pass
+    else:
+        current_date = datetime.datetime.now()
+        year = current_date.year
+        month = current_date.month
+    day,sundays,att_dtls=one_month(year,month)
+    data=Salary_Dtls.objects.filter(month_year__gte=datetime.datetime(year, month-1, 1),month_year__lt=datetime.datetime(year, month, 1))
+
+    return render(request,'admin_side/salary_details.html',{'employee':all_employee,'data':data}) 
+
