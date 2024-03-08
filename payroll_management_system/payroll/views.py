@@ -104,7 +104,6 @@ def add_user(request):
         ph_no=request.POST['ph_no']
         salary=request.POST['salary']
         doj=request.POST['doj']
-
         job_type=Job_type.objects.get(position=request.POST['position'])
 
         try:
@@ -177,13 +176,45 @@ def attendance_details(request):
 
 def salary_details(request):
     if request.method=='POST':
-        pass
+        a = request.POST['month']
+        year, month = a.split('-')
+        month=int(month)
+        year=int(year)
     else:
         current_date = datetime.datetime.now()
         year = current_date.year
         month = current_date.month
     day,sundays,att_dtls=one_month(year,month)
-    data=Salary_Dtls.objects.filter(month_year__gte=datetime.datetime(year, month-1, 1),month_year__lt=datetime.datetime(year, month, 1))
+    month_name = calendar.month_name[month]
 
-    return render(request,'admin_side/salary_details.html',{'employee':all_employee,'data':data}) 
+    data=Salary_Dtls.objects.filter(month_year__gte=datetime.datetime(year, month, 1),month_year__lt=datetime.datetime(year, month+1, 1))
+
+    return render(request,'admin_side/salary_details.html',{'employee':all_employee,'data':data,'Month':month_name,'year':year}) 
+
+def view_employee(request):
+    return render(request,'admin_side/view_employee.html',{'employee':all_employee}) 
+
+def delete_employee(request,id):
+    data=Employee.objects.get(pk=id)
+    data.delete()
+    return redirect(view_employee)
+
+def update_employee(request,id):
+    data=Employee.objects.get(pk=id)
+    if request.method=='POST':
+
+        name=request.POST['name']
+        email=request.POST['email']
+        ph_no=request.POST['ph_no']
+        salary=request.POST['salary']
+        doj=request.POST['doj']
+        job_type=request.POST['job_type']
+        data.save()
+        return redirect(view_employee)
+    else:
+        data1 = {'doj':str(data.doj)}
+        date_obj = datetime.datetime.strptime(data1['doj'], '%Y-%m-%d %H:%M:%S%z')
+        formatted_date = date_obj.strftime('%Y-%m-%d')
+        print(formatted_date)
+        return render(request,'admin_side/edit_employee.html',{'employee':data,'date':formatted_date,'job_type':all_jobs()}) 
 

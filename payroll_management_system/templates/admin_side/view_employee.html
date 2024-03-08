@@ -131,7 +131,7 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">ACM</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">Payroll</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -259,85 +259,56 @@
               </div>
               {% endif %}
               <!-- Basic Layout -->
-              <div class="card">
      
-                <h3 class="card-header">Salary Details </h3>
-                <h5 class="mx-5">Month:{{Month}} &nbsp; Year : {{year}} &nbsp;</h5>
-                <h6 class="mx-5"> change Year and month<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#myModal">click here</button></h6>
-              
-                <div class="modal" id="myModal">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
+           
                 
-                      <!-- Modal Header -->
-                      <div class="modal-header">
-                        <h4 class="modal-title">Select Year and Month </h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                      </div>
-                <form action="../salary_details" method="post">
-                  {% csrf_token %}
-                      <!-- Modal body -->
-                      <div class="modal-body">
-                        <input type="month" class="form-control" required name="month">
-                      </div>
-                
-                      <!-- Modal footer -->
-                      <div class="modal-footer">
-                        <input type="submit" class="btn btn-danger"  >
-                      </div>
-                    </form>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="table-responsive text-nowrap container">
+                <div class="table-responsive text-nowrap container ">
             <input type="text" id="searchInput" placeholder="Search..." class="form-control mb-4">
 
-                  {% if data %}
+                  {% if employee %}
                   <form action="../mark_attendence" method="post">
                     {% csrf_token %}
-                    <div class="table-responsive mb-3">
-                  <table class="table table-hover table-bordard " id="myTable">
+                    <div class="table-responsive-sm mb-5 pb-5">
+                  <table class="table table-hover table-bordard table-sm" id="myTable">
                     <thead>
                       <tr class="bg-dark">
                     
                         <th >Employee Name</th>
                         <th >Department</th>
-                        <th>Total working days</th>
-                        <th>Total Present</th> 
-                        <th>Employee salary</th>    
-                        <th>This month salary</th>                  
+                        <th>Date of join</th>
+                        <th>Salary</th> 
+                        <th>Email</th>  
+                        <th>action</th>  
                       </tr>
-                      <!-- <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-
-                        <th> 
-                        
-                         <table>
-                            <tr>
-                                {% for i in days %}
-                              <th class="p-3"> {{i}}</th>
-                                {% endfor %}
-                            </tr>
-                         </table>
-                        
-                      
-                      </th>
-                      </tr> -->
                     </thead>
                     <tbody class="table-border-bottom-0">
                      
-                        {% for sal in data %}
+                        {% for emp in employee %}
                         <tr>
                             
-                            <td>{{sal.employee.name}}</td>
-                            <td>{{sal.employee.job_type.position}}</td>
-                            <td>{{sal.total_working_days}} </td>
-                            <td>{{sal.total_present}} </td>
-                            <td>{{sal.curent_salary}}</td>
-                            <td>{{sal.payable_amts}}</td>
+                            <td>{{emp.name}}</td>
+                            <td>{{emp.job_type.position}}</td>
+                            <td>{{emp.doj}}</td>
+                            <td>{{emp.salary}}</td>
+                            <td>{{emp.email}}</td>
+                            <td>
+                              <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                  <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="../update_employee/{{emp.id}}"
+                                    ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                                  >
+                                  <a class="dropdown-item" href="../delete_emp/{{emp.id}}"onclick="return confirm('Are you sure want to delete this?')"
+                                    ><i class="bx bx-trash me-1"></i> Delete</a
+                                  >
+                                  
+
+                                </div>
+                              </div>
+                            </td>
+                  
   
                             
                 

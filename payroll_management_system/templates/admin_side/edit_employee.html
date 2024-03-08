@@ -32,10 +32,6 @@
     <meta name="description" content="" />
 {% load static %}
     <!-- Favicon -->
-
- 
-
-
     <link rel="icon" type="image/x-icon" href="{% static 'admin_side/assets/img/favicon/favicon.ico' %}" />
 
     <!-- Fonts -->
@@ -142,96 +138,103 @@
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
+            <!-- Dashboard -->
+            <li class="menu-item ">
+              <a href="../admin_home" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Dashboard</div>
+              </a>
+            </li>
+
+            <!-- Layouts -->
+            <li class="menu-item active open" >
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <div data-i18n="Layouts">Employees</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="menu-item active ">
+                  <a href="../add_user" class="menu-link">
+                    <div data-i18n="Without menu">Add Employee</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="../view_employees" class="menu-link">
+                    <div data-i18n="Without navbar">View Employee</div>
+                  </a>
+                </li>
+                
+              </ul>
+            </li>
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Attendance</span>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                <div data-i18n="Account Settings">Attendance</div>
+              </a>
+
+              <ul class="menu-sub">
+                
+                <li class="menu-item">
+                  <a href="../attendance_details" class="menu-link">
+                    <div data-i18n="Account"> Attendance Details</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="../mark_attendence" class="menu-link">
+                    <div data-i18n="Account">Mark Attendance</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+           
+           
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Job Types</span>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">Job Details</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="../add_job_type" class="menu-link">
+                    <div data-i18n="Account">Add New Position</div>
+                  </a>
+                </li>
+               
+                <!-- <li class="menu-item">
+                  <a href="pages-account-settings-connections.html" class="menu-link">
+                    <div data-i18n="Connections">Connections</div>
+                  </a>
+                </li> -->
+              </ul>
+            </li>
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Salary </span>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-folder-open"></i>
+                <div data-i18n="Account Settings">Salary details</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="../salary_details" class="menu-link">
+                    <div data-i18n="Account">Salary details</div>
+                  </a>
+                </li>
+                
+              
+              </ul>
+            </li>
             
-              <li class="menu-item ">
-                <a href="../admin_home" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                  <div data-i18n="Analytics">Dashboard</div>
-                </a>
-              </li>
-  
-              <!-- Layouts -->
-              <li class="menu-item ">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <i class="menu-icon tf-icons bx bx-layout"></i>
-                  <div data-i18n="Layouts">Employees</div>
-                </a>
-  
-                <ul class="menu-sub ">
-                  <li class="menu-item">
-                    <a href="../add_user" class="menu-link">
-                      <div data-i18n="Without menu">Add Employee</div>
-                    </a>
-                  </li>
-                  <li class="menu-item " >
-                    <a href="../view_employees" class="menu-link">
-                      <div data-i18n="Without navbar">View Employee</div>
-                    </a>
-                  </li>
-                  
-                </ul>
-              </li>
-              <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Attendance</span>
-              </li>
-              <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                  <div data-i18n="Account Settings">Attendance</div>
-                </a>
-  
-                <ul class="menu-sub">
-                  
-                  <li class="menu-item">
-                    <a href="../attendance_details" class="menu-link">
-                      <div data-i18n="Account">Attendance Details</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="../mark_attendence" class="menu-link">
-                      <div data-i18n="Account">Mark Attendance</div>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Job Types</span>
-              </li>
-              <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                  <div data-i18n="Account Settings">Job Details</div>
-                </a>
-                <ul class="menu-sub">
-                  <li class="menu-item">
-                    <a href="../add_job_type" class="menu-link">
-                      <div data-i18n="Account">Add New Position</div>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              
-              
-              <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Salary </span>
-              </li>
-              <li class="menu-item active open">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <i class="menu-icon tf-icons bx bx-folder-open"></i>
-                  <div data-i18n="Account Settings">Salary details</div>
-                </a>
-                <ul class="menu-sub">
-                  <li class="menu-item active">
-                    <a href="../salary_details" class="menu-link">
-                      <div data-i18n="Account">Salary details</div>
-                    </a>
-                  </li>
-                
-                
-                </ul>
-              </li>
-  
-  
+
+            
           </ul>
         </aside>
         <!-- / Menu -->
@@ -240,7 +243,7 @@
         <div class="layout-page">
           <!-- Navbar -->
 
-
+          
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
@@ -248,6 +251,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Add Employee</h4>
               {% if messages %}
               <div class="container">
               <div class="alert alert-success alert-dismissible messages">
@@ -259,99 +263,72 @@
               </div>
               {% endif %}
               <!-- Basic Layout -->
-              <div class="card">
-     
-                <h3 class="card-header">Salary Details </h3>
-                <h5 class="mx-5">Month:{{Month}} &nbsp; Year : {{year}} &nbsp;</h5>
-                <h6 class="mx-5"> change Year and month<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#myModal">click here</button></h6>
-              
-                <div class="modal" id="myModal">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                
-                      <!-- Modal Header -->
-                      <div class="modal-header">
-                        <h4 class="modal-title">Select Year and Month </h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                      </div>
-                <form action="../salary_details" method="post">
-                  {% csrf_token %}
-                      <!-- Modal body -->
-                      <div class="modal-body">
-                        <input type="month" class="form-control" required name="month">
-                      </div>
-                
-                      <!-- Modal footer -->
-                      <div class="modal-footer">
-                        <input type="submit" class="btn btn-danger"  >
-                      </div>
-                    </form>
+              <div class="row">
+                <div class="col-xl">
+                  <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <!-- <h5 class="mb-0">Basic Layout</h5> -->
+                      <!-- <small class="text-muted float-end">Default label</small> -->
+                    </div>
+                    <div class="card-body">
+                      <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">Employee Id</label>
+                            <input type="text" class="form-control" id="basic-default-fullname" name="emp_id" value="{{employee.emp_id}}" readonly placeholder="" required/>
+                          </div>
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-fullname">Employee Name</label>
+                          <input type="text" class="form-control" id="basic-default-fullname" name="name" placeholder="" value="{{employee.name}}" required/>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-email">Email</label>
+                          <div class="input-group input-group-merge">
+                            <input
+                              type="text"
+                              id="basic-default-email"
+                              class="form-control"
+                              placeholder=""
+                              aria-label=""
+                              name="email"
+                              aria-describedby="basic-default-email2"
+                              pattern="[a-z0-9].*@gmail.com"
+                              value="{{employee.email}}"
+                            />
+                          </div>
+                        </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="basic-default-company">Job_type</label>
+                            <select class="form-select" id="" name="position" required>
+                              <option value="{{employee.job_type.position}}">{{employee.job_type.position}}</option>
+                              {% for job in job_type %}
+                                {% if job.id is employee.job_type.id %}
+                                
+                                {% else %}
+                                <option value="{{job.position}}"  >{{job.position}}</option>
+
+                                {% endif %}
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="basic-default-company">DOJ</label>
+                            <input type="date" class="form-control" id="basic-default-company" name="doj" required  value="{{date}}" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="basic-default-company">Phone Number</label>
+                            <input type="tel" class="form-control" id="basic-default-company" name="ph_no" value="{{employee.ph_no}}" placeholder="" required pattern="[6-9][0-9].{8}" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="basic-default-company">Salary</label>
+                            <input type="tel" class="form-control" id="basic-default-company" name="salary" value="{{employee.salary}}" placeholder="" required pattern="[0-9].*" />
+                          </div>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                      </form>
                     </div>
                   </div>
                 </div>
-                
-                <div class="table-responsive text-nowrap container">
-            <input type="text" id="searchInput" placeholder="Search..." class="form-control mb-4">
-
-                  {% if data %}
-                  <form action="../mark_attendence" method="post">
-                    {% csrf_token %}
-                    <div class="table-responsive mb-3">
-                  <table class="table table-hover table-bordard " id="myTable">
-                    <thead>
-                      <tr class="bg-dark">
-                    
-                        <th >Employee Name</th>
-                        <th >Department</th>
-                        <th>Total working days</th>
-                        <th>Total Present</th> 
-                        <th>Employee salary</th>    
-                        <th>This month salary</th>                  
-                      </tr>
-                      <!-- <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-
-                        <th> 
-                        
-                         <table>
-                            <tr>
-                                {% for i in days %}
-                              <th class="p-3"> {{i}}</th>
-                                {% endfor %}
-                            </tr>
-                         </table>
-                        
-                      
-                      </th>
-                      </tr> -->
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                     
-                        {% for sal in data %}
-                        <tr>
-                            
-                            <td>{{sal.employee.name}}</td>
-                            <td>{{sal.employee.job_type.position}}</td>
-                            <td>{{sal.total_working_days}} </td>
-                            <td>{{sal.total_present}} </td>
-                            <td>{{sal.curent_salary}}</td>
-                            <td>{{sal.payable_amts}}</td>
-  
-                            
-                
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-                </form>
-                  {% else %}
-                  <h4>Salary not Calculated</h4>
-                  {% endif %}
-                </div>
-              </div>
+              
               </div>
             </div>
             <!-- / Content -->
@@ -383,8 +360,6 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js' %} -->
-    
-
     <script src="{% static 'admin_side/assets/vendor/libs/jquery/jquery.js' %}"></script>
     <script src="{% static 'admin_side/assets/vendor/libs/popper/popper.js' %}"></script>
     <script src="{% static 'admin_side/assets/vendor/js/bootstrap.js' %}"></script>
@@ -399,9 +374,8 @@
     <script src="{% static 'admin_side/assets/js/main.js' %}"></script>
 
     <!-- Page JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js' %}"></script>
   </body>
 </html>

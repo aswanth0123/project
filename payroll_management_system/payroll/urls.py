@@ -14,4 +14,6 @@ urlpatterns = [
     path('mark_attendence',views.mark_attendence),
     path('attendance_details',views.attendance_details),
     path('salary_details',views.salary_details),
+    path('view_employees',views.view_employee),
+    path('update_employee/<id>',views.update_employee),
 ]
